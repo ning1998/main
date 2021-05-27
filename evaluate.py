@@ -98,6 +98,7 @@ def load_evaluate_data(idx,entity2id,id2embed ,dis2acc):
 
     all_evaluate_dis=[]
     all_dis=list(set(dis2acc.keys()))
+    print('len(all_dis)',len(all_dis))#8571
     for dis in dis2acc:
         all_evaluate_dis.append(dis)
         if len(all_evaluate_dis)==500:
@@ -130,9 +131,9 @@ id2embed=load_embedding()
 
 from keras.optimizers import Adagrad, Adam, SGD, RMSprop, Nadam
 from keras.callbacks import EarlyStopping
-from my_model import TextCNN
+from my_model import predict_model
 print('Build model...')
-model = TextCNN(embedding_dim=100,class_num=2,dis_embedding=128).get_model()
+model = predict_model(embedding_dim=100,class_num=2,dis_embedding=128).get_model()
 model.load_weights('./model/my_model')
 model.compile(optimizer = SGD(lr = 0.001, decay = 1e-4),
               loss = 'sparse_categorical_crossentropy',
@@ -173,15 +174,15 @@ for i in range(0,500):
 P=P/500
 R=R/500
 MAP=MAP/500
-a/=50
+a/=500
 print("MAP: ",MAP)
 print("P_K: ",P)
 print("R_K: ",R)
 print("average_position of real acc: ",a)
 '''
 Evaluate...
-MAP:  0.25303720086161947
-P_K:  0.10400000000000034
-R_K:  0.4575576062826062
-average_position of real acc:  54.23829193584191
+MAP:  0.28011569650896806
+P_K:  0.10800000000000046
+R_K:  0.5191884365634364
+average_position of real acc:  34.77199702242201
 '''

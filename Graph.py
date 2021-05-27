@@ -56,6 +56,7 @@ class Graph(object):
         else:
             def read_unweighted(l):
                 src, dst, this_label = l.split()
+                #print(type(this_label))
                 self.G.add_edge(src, dst)
                 self.G.add_edge(dst, src)
                 self.G[src][dst]['weight'] = 1.0

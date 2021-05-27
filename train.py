@@ -82,16 +82,16 @@ print(train_X.shape,test_X.shape)#(?,2,100)
 
 from keras.optimizers import Adagrad, Adam, SGD, RMSprop, Nadam
 from keras.callbacks import EarlyStopping
-from my_model import TextCNN
+from my_model import predict_model
 
 print('Build model...')
-model = TextCNN(embedding_dim=100,class_num=2,dis_embedding=128).get_model()
+model = predict_model(embedding_dim=100,class_num=2,dis_embedding=128).get_model()
 model.load_weights('./model/my_model')
 model.compile(optimizer = SGD(lr = 0.001, decay = 1e-4),
               loss = 'sparse_categorical_crossentropy',
               metrics=['accuracy'])
 model.summary()
-best_p=0#0.9647
+best_p=0#0.9692
 result = model.predict(test_X)
 result=result.argmax(axis=1)
 best_p=np.sum(result==test_y)/result.shape[0]
